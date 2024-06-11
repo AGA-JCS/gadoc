@@ -1,0 +1,54 @@
+version: "3.5"
+
+services:
+    python_doc_processor:
+        build:
+            context: ./python_doc_processor
+            target: develop_image
+        container_name: python_doc_processor
+        # tty: true
+        command: sleep infinity
+        volumes:
+            - ./python_doc_processor:/home/appadmin/app
+            - ext_vol:/home/appadmin/.vscode-server/extensions
+            - ext_insd_vol:/home/appadmin/.vscode-server-insiders/extensions
+        networks:
+            - aga-jcs-network
+
+    python_doc_uploader:
+        build:
+            context: ./python_doc_uploader
+            target: develop_image
+        container_name: python_doc_uploader
+        # tty: true
+        command: sleep infinity
+        volumes:
+            - ./python_doc_uploader:/home/appadmin/app
+            - ext_vol:/home/appadmin/.vscode-server/extensions
+            - ext_insd_vol:/home/appadmin/.vscode-server-insiders/extensions
+        networks:
+            - aga-jcs-network
+
+    db_ods_aga_jcs:
+        image: citusdata/citus
+        # restart: on-failure
+        environment:
+            POSTGRES_PASSWORD: agaJCS~superuser~2024
+            POSTGRES_USER: agaJCS~superuser
+            POSTGRES_DB: ods_aga_jcs
+        volumes:
+            - db_ods_aga_jcs_data:/var/lib/postgresql/data
+        container_name: db_ods_aga_jcs
+        ports:
+            - "5432:5432"
+        networks:
+            - aga-jcs-network
+
+volumes:
+    db_ods_aga_jcs_data:
+    ext_vol:
+    ext_insd_vol:
+
+
+networks:
+    aga-jcs-network:

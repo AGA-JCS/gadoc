@@ -1,0 +1,58 @@
+{
+	"name": "python_doc_uploader",
+	"dockerComposeFile": [
+		"../../docker-compose.yml"
+	],
+	"service": "python_doc_uploader",
+	"workspaceFolder": "/home/appadmin/app",
+	"postCreateCommand": "pipenv install --dev",
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"code-runner.fileDirectoryAsCwd": true,
+				"code-runner.executorMap": {
+					"python": "$pythonPath -u $fullFileName"
+				},
+				"terminal.integrated.defaultProfile.linux": "bash",
+				"python.pythonPath": "/home/appadmin/app/.venv/bin/python",
+				"[python]": {
+					"editor.defaultFormatter": "ms-python.black-formatter",
+					"editor.codeActionsOnSave": {
+						"source.organizeImports": "always"
+					},
+					"editor.formatOnSave": true
+				},
+				"black-formatter.args": [
+					"--line-length",
+					"120"
+				],
+				"flake8.args": [
+					"max-line-length",
+					"120",
+					"--experimental"
+				],
+				"isort.args": [
+					"--profile",
+					"black"
+				]
+			},
+			"extensions": [
+				"ms-python.python",
+				"ms-toolsai.jupyter",
+				"ms-python.black-formatter",
+				"ms-python.flake8",
+				"ms-python.isort",
+				"aaron-bond.better-comments",
+				"formulahendry.code-runner",
+				"oderwat.indent-rainbow",
+				"njpwerner.autodocstring",
+				"frhtylcn.pythonsnippets",
+				"ms-vsliveshare.vsliveshare",
+				"mechatroner.rainbow-csv",
+				"gruntfuggly.todo-tree"
+			]
+		}
+	},
+	// Add the IDs of extensions you want installed when the container is created.
+	"remoteUser": "appadmin"
+}
