@@ -1,0 +1,25 @@
+PROCESS:
+  NAME: api-procesador-documentos
+
+  PERSISTENCIA: 
+    CONECTORES:
+      SMGO_DB:
+        SYSTEM: Procesador de Documentos de Origen
+        CONNECTOR_TYPE: DB
+        CLASS: Postgresql
+        HOST: db_ods_aga_jcs
+        PORT: 5432
+        USER: agaJCS~superuser
+        PASS: agaJCS~superuser~2024
+        DATABASE: ods_aga_jcs
+
+  API:
+    NOMBRE: GADoc-API
+    VERSION: 1.0.0
+
+  CLOUD:
+    PROJECT_ID: test-vertex-425614
+    BUCKET_NAME: aga-jcs-vertex
+    FOLDER_NAME: documentos-aga
+    LLM: gemini-1.5-flash-001
+    LOCATION: us-central1
