@@ -56,21 +56,23 @@ if st.button("Submit"):
         # Datos a enviar a la API
         data = {
             "numero_despacho": numero_despacho,
-            "option_key": option_key,
-            "concatenado": concatenado,
-            "full_path": f"gs://{bucket_name}/{blob.name}",
+            "tipo_documento": option_key,
+            # "concatenado": concatenado,
+            "full_path_doc": f"gs://{bucket_name}/{blob.name}",
         }
         print(f"Data= {data}")
 
         # URL de la API
-        api_url = "http://localhost:8000/endpoint"
+        # api_url = "http://python_doc_processor:8008/endpoint"
+        api_url = "http://python_doc_processor:8008/doc-origen/extraer"
         # Realiza la solicitud POST a la API
         response = requests.post(api_url, json=data)
         # Verifica la respuesta de la API
         if response.status_code == 200:
             st.success("Datos enviados correctamente a la API.")
+            st.write(response.json())
         else:
-            st.error(f"Error al enviar datos a la API: {response.status_code}")
+            st.error(f"Error al enviar datos a la API: {response}")
 
     else:
         st.error("Please upload a file first.")
