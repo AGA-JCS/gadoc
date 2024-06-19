@@ -10,8 +10,8 @@ services:
         command: sleep infinity
         volumes:
             - ./python_doc_processor:/home/appadmin/app
-            - ext_vol:/home/appadmin/.vscode-server/extensions
-            - ext_insd_vol:/home/appadmin/.vscode-server-insiders/extensions
+            - ext_vol_1:/home/appadmin/.vscode-server/extensions
+            - ext_insd_vol_1:/home/appadmin/.vscode-server-insiders/extensions
         networks:
             - aga-jcs-network
 
@@ -24,8 +24,8 @@ services:
         command: sleep infinity
         volumes:
             - ./python_doc_uploader:/home/appadmin/app
-            - ext_vol:/home/appadmin/.vscode-server/extensions
-            - ext_insd_vol:/home/appadmin/.vscode-server-insiders/extensions
+            - ext_vol_2:/home/appadmin/.vscode-server/extensions
+            - ext_insd_vol_2:/home/appadmin/.vscode-server-insiders/extensions
         networks:
             - aga-jcs-network
 
@@ -46,8 +46,10 @@ services:
 
 volumes:
     db_ods_aga_jcs_data:
-    ext_vol:
-    ext_insd_vol:
+    ext_vol_1:
+    ext_insd_vol_1:
+    ext_vol_2:
+    ext_insd_vol_2:
 
 
 networks:
