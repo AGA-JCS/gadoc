@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from src.adapadores.primarios.api.v1 import route_documento_origen
+import src.adaptadores.primarios.api.v1.router_documento_origen as rdo
 
 api_router = APIRouter()
-api_router.include_router(route_documento_origen.router, tags=["Documento de Origen"])
+api_router.include_router(rdo.router, tags=["Documento de Origen"])

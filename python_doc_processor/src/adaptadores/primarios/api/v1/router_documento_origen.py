@@ -1,22 +1,28 @@
 import json
 
-# from dependency_injector.wiring import Provide, inject
+from dependency_injector.wiring import Provide, inject
 from fastapi import APIRouter, Depends, HTTPException, Response, status
 from fastapi.encoders import jsonable_encoder
 
-from src.aplicacion.servicios.servicio_procesador_documento import (
-    ServicioProcesadorDocumentos,
+from src.adaptadores.primarios.api import STATUS_CODES
+from src.aplicacion.dtos.documento import ParametrosExtraccionDTO
+from src.aplicacion.puertos.primarios.servicio_procesador_documento import (
+    IServicioProcesadorDocumentos,
 )
-
-# from src.configuracion.containers import Container
+from src.configuracion.containers import Container
 
 router = APIRouter()
 
 
-@router.post("/doc-origen/procesar", tags=["Documento de Origen"])  # , response_model=PropiedadDto)
-# @inject
-async def procesar_documento_origen(servicio_procesador_documentos: ServicioProcesadorDocumentos):
-    respuesta = servicio_dom_propiedades.obtener_propiedades()
+@router.post("/doc-origen/extraer", tags=["Documento de Origen"])  # , response_model=PropiedadDto)
+@inject
+def procesar_documento_origen(
+    parametros: ParametrosExtraccionDTO,
+    servicio_procesador_documentos: IServicioProcesadorDocumentos = Depends(
+        Provide[Container.servicio_procesador_documentos]
+    ),
+):
+    respuesta = servicio_procesador_documentos.extraer_datos(parametros_extraccion=parametros)
     data = jsonable_encoder(respuesta.value)
     return Response(
         content=json.dumps(data),
