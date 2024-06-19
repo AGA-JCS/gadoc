@@ -20,6 +20,5 @@ PROCESS:
   CLOUD:
     PROJECT_ID: test-vertex-425614
     BUCKET_NAME: aga-jcs-vertex
-    FOLDER_NAME: documentos-aga
     LLM: gemini-1.5-flash-001
     LOCATION: us-central1

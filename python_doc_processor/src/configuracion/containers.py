@@ -1,4 +1,6 @@
 from dependency_injector import containers, providers
+from src.aplicacion.puertos.primarios.servicio_procesador_documento import IServicioProcesadorDocumentos
+from src.aplicacion.servicios.servicio_procesador_documento import ServicioProcesadorDocumentos
 
 
 class Container(containers.DeclarativeContainer):
@@ -20,4 +22,5 @@ class Container(containers.DeclarativeContainer):
     # SERVICIOS
     ####################################################################################################################
     # Aplicacion
+    servicio_procesador_documentos: IServicioProcesadorDocumentos = providers.Factory(ServicioProcesadorDocumentos)
     # Dominio
