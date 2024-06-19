@@ -12,6 +12,7 @@ psycopg2-binary = "*"
 fastapi = "*"
 google-cloud-aiplatform = "*"
 pydantic = "*"
+dependency-injector = "*"
 
 [dev-packages]
 black = "*"
