@@ -1,9 +1,18 @@
-from pydantic import BaseModel
 from datetime import datetime
 from typing import List, Optional
+
+from pydantic import BaseModel
+
+from src.aplicacion.dominio.modelos.entidades.actores import CiaNaviera
+from src.aplicacion.dominio.modelos.entidades.carga import TipoBulto, TipoCarga
 from src.aplicacion.dominio.modelos.value_objects.observacion import Observacion
-from src.aplicacion.dominio.modelos.entidades.carga import TipoCarga, TipoBulto
-from src.aplicacion.dominio.modelos.entidades.entidades_portuarias import CiaNaviera
+
+
+class Cliente(BaseModel):
+    id: int
+    nombre: str
+    idn: str
+    direccion: str
 
 
 class TipoDocumento(BaseModel):
@@ -13,18 +22,25 @@ class TipoDocumento(BaseModel):
 
 
 class Documento(BaseModel):
-    id: int
-    tipo: TipoDocumento
+    # tipo: TipoDocumento
     numero: str
-    checksum: str
+    # checksum: str
     fecha_emision: datetime
+    # id: Optional[int] = None
     emisor: Optional[str] = None
+    # observaciones: Optional[List[Observacion]] = []
 
     def validar_consistencia_interna(self):
         # TODO: Definir validaciones internas generales a todo documento
         # Ejemplos:
         # 1. Validar que el checksum sea correcto
         # 2. Validar si el documento ya se encuentra procesado y asociado al despacho
+        pass
+
+    def validar_consistencia_externa(self):
+        # TODO: Definir validaciones externas generales a todo documento
+        # Ejemplos:
+        # 1. Validar que el cliente si aparece mencionado sea el mismo que en el resto de los documentos asociados al despacho
         pass
 
 
@@ -35,26 +51,25 @@ class BillofLading(Documento):
     cia_transportadora: CiaNaviera
     tipo_bulto: TipoBulto
     cantidad: int
-    peso_bruto: int
+    peso_bruto: float
     flete: str
     identificacion_bultos: str
-    observaciones: Optional[List[Observacion]] = []
-
-
-class PackingList(Documento):
-    pass
 
 
 class PackingListDetail(BaseModel):
     pass
 
 
-class Invoice(Documento):
-    pass
+class PackingList(Documento):
+    detalles: List[PackingListDetail]
 
 
 class InvoiceDetail(BaseModel):
     pass
+
+
+class Invoice(Documento):
+    detalles: List[InvoiceDetail]
 
 
 class OriginCertificate(Documento):

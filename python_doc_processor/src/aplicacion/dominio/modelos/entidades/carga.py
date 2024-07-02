@@ -2,7 +2,7 @@ from pydantic import BaseModel
 
 
 class TipoCarga(BaseModel):
-    pass
+    nombre: str
 
 
 class Carga(BaseModel):
@@ -10,7 +10,7 @@ class Carga(BaseModel):
 
 
 class TipoBulto(BaseModel):
-    pass
+    nombre: str
 
 
 class Bulto(BaseModel):

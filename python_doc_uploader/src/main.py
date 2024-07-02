@@ -40,6 +40,17 @@ options_dict = {"BL": "Bill of Lading", "FA": "Factura", "CO": "Certificado de O
 options_list = list(options_dict.values())
 option = st.selectbox("Select an option", options_list)
 
+dict_tipodoc_url = {
+    "BL": "http://python_doc_processor:8008/doc-origen/extraer/bl",
+    "FA": "http://python_doc_processor:8008/doc-origen/extraer/invoice",
+    "CO": "http://python_doc_processor:8008/doc-origen/extraer/co",
+}
+
+
+def obtener_url(option):
+    return dict_tipodoc_url[option]
+
+
 if st.button("Submit"):
     if uploaded_file is not None:
         nombre_archivo = uploaded_file.name
@@ -64,7 +75,8 @@ if st.button("Submit"):
 
         # URL de la API
         # api_url = "http://python_doc_processor:8008/endpoint"
-        api_url = "http://python_doc_processor:8008/doc-origen/extraer"
+        # api_url = "http://python_doc_processor:8008/doc-origen/extraer"
+        api_url = obtener_url(option_key)
         # Realiza la solicitud POST a la API
         response = requests.post(api_url, json=data)
         # Verifica la respuesta de la API
